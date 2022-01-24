@@ -1,0 +1,498 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Login & Register Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="icon" th:href="@{/images/logo.png}" href="/static/images/logo.png">
+        <style>
+
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            }
+
+            body,
+            input {
+            font-family: "Poppins", sans-serif;
+            }
+            .fa {
+                padding: 20px;
+                font-size: 30px;
+                width: 100px;
+                text-align: center;
+                text-decoration: none;
+                margin: 5px 2px;
+                border-radius: 50%;
+            }
+
+            .fa:hover {
+                opacity: 0.7;
+            }
+
+            .fa-facebook {
+                background: #3B5998;
+                color: white;
+            }
+            .fa-twitter {
+                background: #55ACEE;
+                color: white;
+            }
+
+            .fa-google {
+                background: #dd4b39;
+                color: white;
+            }
+
+            .fa-linkedin {
+                background: #007bb5;
+                color: white;
+            }
+
+            .container {
+            position: relative;
+            width: 100%;
+            background-color: #fff;
+            min-height: 100vh;
+            overflow: hidden;
+            background: url("https://images.pexels.com/photos/5737277/pexels-photo-5737277.jpeg") no-repeat;
+            background-size: cover;
+            }
+
+            .forms-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            }
+
+            .signin-signup {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            left: 75%;
+            width: 50%;
+            transition: 1s 0.7s ease-in-out;
+            display: grid;
+            grid-template-columns: 1fr;
+            z-index: 5;
+            }
+
+            form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0rem 5rem;
+            transition: all 0.2s 0.7s;
+            overflow: hidden;
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            }
+
+            form.sign-up-form {
+            opacity: 0;
+            z-index: 1;
+            }
+
+            form.sign-in-form {
+            z-index: 2;
+            }
+
+            .title {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 10px;
+            }
+
+            .input-field {
+            max-width: 380px;
+            width: 100%;
+            background-color: #f0f0f0;
+            margin: 10px 0;
+            height: 55px;
+            border-radius: 55px;
+            display: grid;
+            grid-template-columns: 15% 85%;
+            padding: 0 0.4rem;
+            position: relative;
+            }
+
+            .input-field i {
+            text-align: center;
+            line-height: 55px;
+            color: #acacac;
+            transition: 0.5s;
+            font-size: 1.1rem;
+            }
+
+            .input-field input {
+            background: none;
+            outline: none;
+            border: none;
+            line-height: 1;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+            }
+
+            .input-field input::placeholder {
+            color: #aaa;
+            font-weight: 500;
+            }
+
+            .btn {
+            width: 150px;
+            background-color: blueviolet;
+            border: none;
+            outline: none;
+            height: 49px;
+            border-radius: 49px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: 0.5s;
+            }
+
+            .btn:hover {
+            background-color: #4d84e2;
+            }
+            .panels-container {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container:before {
+            content: "";
+            position: absolute;
+            height: 2000px;
+            width: 2000px;
+            top: -10%;
+            right: 48%;
+            transform: translateY(-50%);
+            background-color: blueviolet;
+            opacity: 0.3;
+            background-size: cover;
+            transition: 1.8s ease-in-out;
+            border-radius: 50%;
+            z-index: 6;
+            }
+
+            .image {
+            width: 100%;
+            transition: transform 1.1s ease-in-out;
+            transition-delay: 0.4s;
+            }
+
+            .panel {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-around;
+            text-align: center;
+            z-index: 6;
+            }
+
+            .left-panel {
+            pointer-events: all;
+            padding: 3rem 17% 2rem 12%;
+            }
+
+            .right-panel {
+            pointer-events: none;
+            padding: 3rem 12% 2rem 17%;
+            }
+
+            .panel .content {
+            color: #fff;
+            transition: transform 0.9s ease-in-out;
+            transition-delay: 0.6s;
+            }
+
+            .panel h3 {
+            font-weight: 600;
+            line-height: 1;
+            font-size: 1.5rem;
+            }
+
+            .panel p {
+            font-size: 0.95rem;
+            padding: 0.7rem 0;
+            }
+
+            .btn.transparent {
+            margin: 0;
+            background: none;
+            border: 2px solid #fff;
+            width: 130px;
+            height: 41px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            }
+
+            .right-panel .image,
+            .right-panel .content {
+            transform: translateX(800px);
+            }
+
+            .container.sign-up-mode:before {
+            transform: translate(100%, -50%);
+            right: 52%;
+            }
+
+            .container.sign-up-mode .left-panel .image,
+            .container.sign-up-mode .left-panel .content {
+            transform: translateX(-800px);
+            }
+
+            .container.sign-up-mode .signin-signup {
+            left: 25%;
+            }
+
+            .container.sign-up-mode form.sign-up-form {
+            opacity: 1;
+            z-index: 2;
+            }
+
+            .container.sign-up-mode form.sign-in-form {
+            opacity: 0;
+            z-index: 1;
+            }
+
+            .container.sign-up-mode .right-panel .image,
+            .container.sign-up-mode .right-panel .content {
+            transform: translateX(0%);
+            }
+
+            .container.sign-up-mode .left-panel {
+            pointer-events: none;
+            }
+
+            .container.sign-up-mode .right-panel {
+            pointer-events: all;
+            }
+
+            @media (max-width: 870px) {
+            .container {
+                min-height: 800px;
+                height: 100vh;
+            }
+            .signin-signup {
+                width: 100%;
+                top: 95%;
+                transform: translate(-50%, -100%);
+                transition: 1s 0.8s ease-in-out;
+            }
+
+            .signin-signup,
+            .container.sign-up-mode .signin-signup {
+                left: 50%;
+            }
+
+            .panels-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 2fr 1fr;
+            }
+
+            .panel {
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 2.5rem 8%;
+                grid-column: 1 / 2;
+            }
+
+            .right-panel {
+                grid-row: 3 / 4;
+            }
+
+            .left-panel {
+                grid-row: 1 / 2;
+            }
+
+            .image {
+                width: 200px;
+                transition: transform 0.9s ease-in-out;
+                transition-delay: 0.6s;
+            }
+
+            .panel .content {
+                padding-right: 15%;
+                transition: transform 0.9s ease-in-out;
+                transition-delay: 0.8s;
+            }
+
+            .panel h3 {
+                font-size: 1.2rem;
+            }
+
+            .panel p {
+                font-size: 0.7rem;
+                padding: 0.5rem 0;
+            }
+
+            .btn.transparent {
+                width: 110px;
+                height: 35px;
+                font-size: 0.7rem;
+            }
+
+            .container:before {
+                width: 1500px;
+                height: 1500px;
+                transform: translateX(-50%);
+                left: 30%;
+                bottom: 68%;
+                right: initial;
+                top: initial;
+                transition: 2s ease-in-out;
+            }
+
+            .container.sign-up-mode:before {
+                transform: translate(-50%, 100%);
+                bottom: 32%;
+                right: initial;
+            }
+
+            .container.sign-up-mode .left-panel .image,
+            .container.sign-up-mode .left-panel .content {
+                transform: translateY(-300px);
+            }
+
+            .container.sign-up-mode .right-panel .image,
+            .container.sign-up-mode .right-panel .content {
+                transform: translateY(0px);
+            }
+
+            .right-panel .image,
+            .right-panel .content {
+                transform: translateY(300px);
+            }
+
+            .container.sign-up-mode .signin-signup {
+                top: 5%;
+                transform: translate(-50%, 0);
+            }
+            }
+
+            @media (max-width: 570px) {
+            form {
+                padding: 0 1.5rem;
+            }
+
+            .image {
+                display: none;
+            }
+            .panel .content {
+                padding: 0.5rem 1rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+
+            .container:before {
+                bottom: 72%;
+                left: 50%;
+            }
+
+            .container.sign-up-mode:before {
+                bottom: 28%;
+                left: 50%;
+            }
+            }
+        </style>
+    </head>
+<body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form th:action="@{/login}" method="post" class="sign-in-form">
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="email" placeholder="Username" name="email" id="email" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" name="password" id="password"/>
+            </div>
+            <input type="submit" value="Login" class="btn solid" />
+          </form>
+          <form th:action="@{/register}" th:object="${user}" method="post" class="sign-up-form">
+            <h2 class="title">Sign up</h2>
+            <div class="input-field">
+              <label for="firstName"></label>
+              <input type="text" name="firstName" id="firstName" required placeholder="Your Firstname" class="form-control form-control-lg">
+            </div>
+            <div class="input-field">
+              <label for="lastName"></label>
+              <input type="text" name="lastName" id="lastName" required placeholder="Your Lastname" class="form-control form-control-lg">
+            </div>
+            <div class="input-field">
+              <label for="email"></label>
+              <input type="email" class="form-control form-control-lg" required minlength="6" placeholder="Email" name="email" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="input-field">
+              <label for="password"></label>
+              <input type="password" class="form-control form-control-lg" required placeholder="Password" name="password" id="password">
+            </div>
+            <input type="submit" class="btn" value="Sign up" />
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h1>I don't have an account?</h1>
+            <button class="btn" id="sign-up-btn">
+              Sign up
+            </button>
+            <br><br>
+            <h2>Sign up using social platforms</h2>
+            <br>
+            <a href="https://www.facebook.com" target="blank" class="fa fa-facebook"></a>
+            <a href="https://www.twitter.com" target="blank" class="fa fa-twitter"></a>
+            <a href="https://www.gmail.com" target="blank" class="fa fa-google"></a>
+            <a href="https://www.linkedin.com/login" target="blank" class="fa fa-linkedin"></a>
+          </div>
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h1>I have an account?</h1>
+            <button class="btn solid" id="sign-in-btn">
+              Sign in
+            </button>
+            <br><br>
+            <h2>Sign in using social platforms</h2>
+            <br>
+            <a href="https://www.facebook.com" target="blank" class="fa fa-facebook"></a>
+            <a href="https://www.twitter.com" target="blank" class="fa fa-twitter"></a>
+            <a href="https://www.gmail.com" target="blank" class="fa fa-google"></a>
+            <a href="https://www.linkedin.com/login" target="blank" class="fa fa-linkedin"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        const sign_in_btn = document.querySelector("#sign-in-btn");
+        const sign_up_btn = document.querySelector("#sign-up-btn");
+        const container = document.querySelector(".container");
+
+        sign_up_btn.addEventListener("click", () => {
+        container.classList.add("sign-up-mode");
+        });
+
+        sign_in_btn.addEventListener("click", () => {
+        container.classList.remove("sign-up-mode");
+        });
+    </script>
+  </body>
+</html>
